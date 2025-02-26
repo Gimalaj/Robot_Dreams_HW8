@@ -1,0 +1,12 @@
+apiVersion: v1  # Використовуємо API версії v1 для створення Service
+kind: Service  # Визначаємо, що створюється об'єкт типу Service
+metadata:
+  name: hw8-service  # Ім'я створюваного сервісу
+spec:
+  selector:
+    app: hw8-app  # Визначаємо, що цей Service обслуговує pod'и з міткою app: hw8-app
+  ports:
+    - protocol: TCP  # Використовуємо протокол TCP
+      port: 80  # Порт, на якому Service приймає запити
+      targetPort: 80  # Порт усередині pod'а, на який перенаправляються запити
+  type: ClusterIP  # Тип сервісу, доступний тільки всередині кластера

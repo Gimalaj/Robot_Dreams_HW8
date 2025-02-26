@@ -1,0 +1,19 @@
+apiVersion: apps/v1  # Використовуємо API версії apps/v1 для створення Deployment
+kind: Deployment  # Визначаємо, що створюється об'єкт типу Deployment
+metadata:
+  name: hw8-deployment  # Ім'я Deployment'а
+spec:
+  replicas: 3  # Вказуємо, скільки pod'ів буде створено
+  selector:
+    matchLabels:
+      app: hw8-app  # Визначаємо, що цей Deployment керує pod'ами з міткою app: hw8-app
+  template:  # Шаблон для створення pod'ів
+    metadata:
+      labels:
+        app: hw8-app  # Додаємо мітку для pod'ів, щоб відповідати selector'у
+    spec:
+      containers:
+        - name: hw8-container  # Ім'я контейнера всередині pod'а
+          image: nginx:latest  # Образ контейнера, який буде використовуватись
+          ports:
+            - containerPort: 80  # Відкриваємо порт 80 для контейнера

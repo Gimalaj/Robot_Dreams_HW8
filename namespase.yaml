@@ -1,0 +1,4 @@
+apiVersion: v1  # Використовуємо API версії v1 для створення Namespace
+kind: Namespace  # Визначаємо, що створюється об'єкт типу Namespace
+metadata:
+  name: hw8-namespace  # Ім'я створюваного простору імен

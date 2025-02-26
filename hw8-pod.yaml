@@ -1,0 +1,10 @@
+apiVersion: v1  # Визначаємо версію API Kubernetes
+kind: Pod  # Вказуємо, що створюється об'єкт типу Pod
+metadata:
+  name: hw8-pod  # Ім'я pod'а
+spec:
+  containers:
+    - name: hw8-container  # Ім'я контейнера всередині pod'а
+      image: nginx:latest  # Образ контейнера, який буде використовуватись
+      ports:
+        - containerPort: 80  # Відкриваємо порт 80 для контейнера
