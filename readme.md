@@ -49,6 +49,15 @@ kube-system       Active   23d
 sudo microk8s.kubectl describe namespace hw8-namespace
 ```
 
+**Вивід:**
+```
+Name:         hw8-namespace
+Labels:       kubernetes.io/metadata.name=hw8-namespace
+Annotations:  <none>
+Status:       Active
+No resource quota.
+No LimitRange resource.
+```
 ## **Створення та розгортання Pod**
 
 Редагуємо та застосовуємо pod:
@@ -70,6 +79,23 @@ hw8-pod   1/1     Running   0          13s
 Опис pod:
 ```sh
 sudo microk8s.kubectl describe pod hw8-pod -n hw8-namespace
+```
+
+**Вивід:**
+```
+Name:             hw8-pod
+Namespace:        hw8-namespace
+Priority:         0
+Service Account:  default
+Node:             ubuntu/10.0.2.15
+Start Time:       Wed, 26 Feb 2025 19:06:04 +0000
+Labels:           <none>
+Annotations:      cni.projectcalico.org/containerID: 3e4e1130434242a272135aa352a3b431d1fd9ee3186b969c1135a5193953cece
+                  cni.projectcalico.org/podIP: 10.1.243.242/32
+                  cni.projectcalico.org/podIPs: 10.1.243.242/32
+Status:           Running
+IP:               10.1.243.242
+...
 ```
 
 ## **Перевірка доступності pod через curl**
@@ -109,6 +135,12 @@ hw8-service   ClusterIP   10.152.183.76   <none>        80/TCP    12s
 sudo microk8s.kubectl get endpoints hw8-service -n hw8-namespace
 ```
 
+**Вивід:**
+```
+NAME          ENDPOINTS   AGE
+hw8-service   <none>      32s
+```
+
 ## **Створення та застосування Deployment**
 
 Редагуємо та застосовуємо deployment:
@@ -130,6 +162,28 @@ hw8-deployment   3/3     3            3           11s
 Опис deployment:
 ```sh
 sudo microk8s.kubectl describe deployment hw8-deployment -n hw8-namespace
+```
+
+**Вивід:**
+```
+Name:                   hw8-deployment
+Namespace:              hw8-namespace
+CreationTimestamp:      Wed, 26 Feb 2025 19:10:24 +0000
+Labels:                 <none>
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=hw8-app
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=hw8-app
+  Containers:
+   hw8-container:
+    Image:         nginx:latest
+    Port:          80/TCP
+    Host Port:     0/TCP
+...
 ```
 
 ## **Масштабування Deployment**
@@ -165,3 +219,5 @@ sudo microk8s.kubectl get pods -n hw8-namespace
 NAME                              READY   STATUS    RESTARTS   AGE
 hw8-deployment-75448f45cf-ggc6l   1/1     Running   0          116s
 hw8-deployment-75448f45cf-kwrdn   1/1     Running   0          116s
+```
+
